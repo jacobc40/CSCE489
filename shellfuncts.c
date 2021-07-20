@@ -6,8 +6,10 @@
 #include <stdio.h>
 #include "shellfuncts.h"
 #include <unistd.h>
-#include <cstdlib>
-#include <cstring>
+//#include <cstdlib>
+#include <stdlib.h>
+//#include <cstring>
+#include <string.h>
 
 
 /*************************************************************************************
@@ -93,6 +95,7 @@ void list(char *fileName){
 	//if file is null, the file does not exist and error msg will be printed
 	if(file == NULL){
 		printf("Error: The file does not exist.\n");
+		exit(0);
 	}
 
 	//if it does exist, print out the file contents and close when done

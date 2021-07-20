@@ -7,7 +7,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "shellfuncts.h"
-#include <cstring>
+//#include <cstring>
+#include <string.h>
 #include <sys/wait.h>
 
 int main(int argv, const char *argc[]) {
@@ -53,16 +54,17 @@ int main(int argv, const char *argc[]) {
 			//throw error if file name is not specified
 			if(fileName == NULL){
 				printf("Error: Did not specify file name.\n");
-				exit(0);
 			}
 
 			//if file name is specified, fork a child process to carry out create command
-			if(fork() == 0){
-				printf("\nChild process id for create: %d\n", getpid());
-				create(fileName);
+			else{
+				if(fork() == 0){
+					printf("\nChild process id for create: %d\n", getpid());
+					create(fileName);
 			
+				}	
+				wait(NULL);
 			}
-			wait(NULL);
 			
 		}
 
@@ -72,30 +74,33 @@ int main(int argv, const char *argc[]) {
 			//check if all required params are included (short-circuits)
 			if(fileName == NULL || n == NULL || text == NULL){
 				printf("Error: Either did not specify file name, number of times to append, or text to append.\n");
-				exit(0);
 			}
 
 			//if params are there, fork a new child process to carry out update command
-			if(fork() == 0){
-				printf("\nChild process id for update: %d\n", getpid());
-				update(fileName, atoi(n), text);
-			}
+			else{
+				if(fork() == 0){
+					printf("\nChild process id for update: %d\n", getpid());
+					update(fileName, atoi(n), text);
+				}
 			
-			wait(NULL);}
+				wait(NULL);
+			}
+		}
 
 		//if command is list
 		else if(strcmp(command, "list") == 0){
 			//throw error if file name is not specified
 			if(fileName == NULL){
 				printf("Error: Did not specify file name.\n");
-				exit(0);
 			}
 			//if file name is specified, fork a child process to carry out create command
-			if(fork() == 0){
-				printf("\nChild process id for list: %d", getpid());
-				list(fileName);
-			}
-			wait(NULL);	
+			else{
+				if(fork() == 0){
+					printf("\nChild process id for list: %d", getpid());
+					list(fileName);
+				}
+				wait(NULL);
+			}	
 		}
 		//if command is dir
 		else if(strcmp(command, "dir") == 0){
