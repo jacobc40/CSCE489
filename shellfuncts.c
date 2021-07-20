@@ -6,9 +6,7 @@
 #include <stdio.h>
 #include "shellfuncts.h"
 #include <unistd.h>
-//#include <cstdlib>
 #include <stdlib.h>
-//#include <cstring>
 #include <string.h>
 
 
@@ -100,7 +98,6 @@ void list(char *fileName){
 
 	//if it does exist, print out the file contents and close when done
 	else{
-		
 		//executes bin file cat to print out contents of fileName	
 		execl("/bin/cat", "cat", fileName, NULL);
 
