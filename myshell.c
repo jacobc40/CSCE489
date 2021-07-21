@@ -123,6 +123,10 @@ int main(int argv, const char *argc[]) {
 				//so we print out the child pid and have it carry out update command
 				if(fork() == 0){
 					printf("\nChild process id for update: %d\n", getpid());
+					if(text[strlen(text)-1] == '&'){
+						text[strlen(text)-1] = '\0';
+						*amp = '&';
+					}
 					update(fileName, atoi(n), text);          //original n is part of a string input											//so we convert it to an int
 				}
 				//if amp does not equal NULL, it must equal & symbol because of the top else statement
